@@ -13,6 +13,14 @@
 		40E4D10E27D85FBB00ED405A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40E4D10C27D85FBB00ED405A /* Main.storyboard */; };
 		40E4D11027D85FBC00ED405A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E4D10F27D85FBC00ED405A /* Assets.xcassets */; };
 		40E4D11327D85FBC00ED405A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40E4D11127D85FBC00ED405A /* LaunchScreen.storyboard */; };
+		40E4D11B27D8673200ED405A /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40E4D11A27D8673200ED405A /* crate.jpg */; };
+		40E4D11F27D878C100ED405A /* Scene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D11E27D878C100ED405A /* Scene.mm */; };
+		40E4D12327D87AC200ED405A /* Assert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D12127D87AC200ED405A /* Assert.cpp */; };
+		40E4D12A27D887FE00ED405A /* Crate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D12827D887FE00ED405A /* Crate.cpp */; };
+		40E4D12E27D88D2B00ED405A /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D12C27D88D2B00ED405A /* Mesh.cpp */; };
+		40E4D13127D8976500ED405A /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D12F27D8976500ED405A /* Shader.cpp */; };
+		40E4D13627D89DD300ED405A /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 40E4D13427D8980300ED405A /* Shader.vsh */; };
+		40E4D13727D89DD600ED405A /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 40E4D13527D8983400ED405A /* Shader.fsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +32,21 @@
 		40E4D10F27D85FBC00ED405A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40E4D11227D85FBC00ED405A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40E4D11427D85FBC00ED405A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40E4D11A27D8673200ED405A /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
+		40E4D11D27D878C100ED405A /* gl-maze-demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "gl-maze-demo-Bridging-Header.h"; sourceTree = "<group>"; };
+		40E4D11E27D878C100ED405A /* Scene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Scene.mm; sourceTree = "<group>"; };
+		40E4D12027D878EA00ED405A /* Scene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		40E4D12127D87AC200ED405A /* Assert.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Assert.cpp; sourceTree = "<group>"; };
+		40E4D12227D87AC200ED405A /* Assert.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Assert.hpp; sourceTree = "<group>"; };
+		40E4D12527D8844200ED405A /* CrateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrateData.h; sourceTree = "<group>"; };
+		40E4D12827D887FE00ED405A /* Crate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Crate.cpp; sourceTree = "<group>"; };
+		40E4D12927D887FE00ED405A /* Crate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Crate.hpp; sourceTree = "<group>"; };
+		40E4D12C27D88D2B00ED405A /* Mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
+		40E4D12D27D88D2B00ED405A /* Mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mesh.hpp; sourceTree = "<group>"; };
+		40E4D12F27D8976500ED405A /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		40E4D13027D8976500ED405A /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
+		40E4D13427D8980300ED405A /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		40E4D13527D8983400ED405A /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +79,11 @@
 		40E4D10527D85FBB00ED405A /* gl-maze-demo */ = {
 			isa = PBXGroup;
 			children = (
+				40E4D13227D897E000ED405A /* res */,
+				40E4D12627D884A700ED405A /* vendor */,
+				40E4D11C27D8673E00ED405A /* assets */,
+				40E4D12427D883D800ED405A /* objects */,
+				40E4D12B27D88CC900ED405A /* core */,
 				40E4D10627D85FBB00ED405A /* AppDelegate.swift */,
 				40E4D10827D85FBB00ED405A /* SceneDelegate.swift */,
 				40E4D10A27D85FBB00ED405A /* ViewController.swift */,
@@ -63,8 +91,66 @@
 				40E4D10F27D85FBC00ED405A /* Assets.xcassets */,
 				40E4D11127D85FBC00ED405A /* LaunchScreen.storyboard */,
 				40E4D11427D85FBC00ED405A /* Info.plist */,
+				40E4D12027D878EA00ED405A /* Scene.h */,
+				40E4D11E27D878C100ED405A /* Scene.mm */,
+				40E4D12227D87AC200ED405A /* Assert.hpp */,
+				40E4D12127D87AC200ED405A /* Assert.cpp */,
+				40E4D11D27D878C100ED405A /* gl-maze-demo-Bridging-Header.h */,
 			);
 			path = "gl-maze-demo";
+			sourceTree = "<group>";
+		};
+		40E4D11C27D8673E00ED405A /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				40E4D11A27D8673200ED405A /* crate.jpg */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		40E4D12427D883D800ED405A /* objects */ = {
+			isa = PBXGroup;
+			children = (
+				40E4D12527D8844200ED405A /* CrateData.h */,
+				40E4D12827D887FE00ED405A /* Crate.cpp */,
+				40E4D12927D887FE00ED405A /* Crate.hpp */,
+			);
+			path = objects;
+			sourceTree = "<group>";
+		};
+		40E4D12627D884A700ED405A /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = vendor;
+			sourceTree = "<group>";
+		};
+		40E4D12B27D88CC900ED405A /* core */ = {
+			isa = PBXGroup;
+			children = (
+				40E4D12C27D88D2B00ED405A /* Mesh.cpp */,
+				40E4D12D27D88D2B00ED405A /* Mesh.hpp */,
+				40E4D12F27D8976500ED405A /* Shader.cpp */,
+				40E4D13027D8976500ED405A /* Shader.hpp */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		40E4D13227D897E000ED405A /* res */ = {
+			isa = PBXGroup;
+			children = (
+				40E4D13327D897E700ED405A /* shaders */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
+		40E4D13327D897E700ED405A /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				40E4D13427D8980300ED405A /* Shader.vsh */,
+				40E4D13527D8983400ED405A /* Shader.fsh */,
+			);
+			path = shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,6 +185,7 @@
 				TargetAttributes = {
 					40E4D10227D85FBB00ED405A = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
 					};
 				};
 			};
@@ -125,9 +212,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40E4D13727D89DD600ED405A /* Shader.fsh in Resources */,
 				40E4D11327D85FBC00ED405A /* LaunchScreen.storyboard in Resources */,
 				40E4D11027D85FBC00ED405A /* Assets.xcassets in Resources */,
 				40E4D10E27D85FBB00ED405A /* Main.storyboard in Resources */,
+				40E4D11B27D8673200ED405A /* crate.jpg in Resources */,
+				40E4D13627D89DD300ED405A /* Shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +229,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				40E4D10B27D85FBB00ED405A /* ViewController.swift in Sources */,
+				40E4D12A27D887FE00ED405A /* Crate.cpp in Sources */,
+				40E4D13127D8976500ED405A /* Shader.cpp in Sources */,
 				40E4D10727D85FBB00ED405A /* AppDelegate.swift in Sources */,
+				40E4D12E27D88D2B00ED405A /* Mesh.cpp in Sources */,
 				40E4D10927D85FBB00ED405A /* SceneDelegate.swift in Sources */,
+				40E4D12327D87AC200ED405A /* Assert.cpp in Sources */,
+				40E4D11F27D878C100ED405A /* Scene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,9 +382,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"GLES_SILENCE_DEPRECATION=1",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "gl-maze-demo/vendor/glm/";
 				INFOPLIST_FILE = "gl-maze-demo/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -304,6 +406,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.btechgames.gl-maze-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "gl-maze-demo/gl-maze-demo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -314,9 +418,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				GCC_PREPROCESSOR_DEFINITIONS = "GLES_SILENCE_DEPRECATION=1";
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "gl-maze-demo/vendor/glm/";
 				INFOPLIST_FILE = "gl-maze-demo/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -331,6 +438,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.btechgames.gl-maze-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "gl-maze-demo/gl-maze-demo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
