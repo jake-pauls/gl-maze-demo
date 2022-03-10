@@ -13,10 +13,25 @@
 class Mesh
 {
 public:
-    void SetupMesh(const float* positions, int positionsSize);
-private:
-    GLuint _VAO;
-    GLuint _VBO;
+    struct MeshData {
+        const float* vertices;
+        int verticesSize;
+        
+        const float* normals;
+        int normalsSize;
+        
+        const GLuint* indices;
+        int numberOfIndices;
+    };
+    
+    GLuint VAO;
+    GLuint IBO;
+    
+    // Buffers
+    GLuint vertexBuffer;
+    GLuint normalBuffer;
+    
+    void SetupMesh(MeshData data);
 };
 
 #endif /* Mesh_hpp */

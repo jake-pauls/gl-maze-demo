@@ -5,8 +5,8 @@
 //  Created by Jake Pauls on 2022-03-08.
 //
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #import "Scene.h"
 
@@ -16,19 +16,16 @@
 
 @interface Scene()
 {
+    // MVP
     GLKView* viewport;
     glm::mat4 projectionMatrix;
     glm::mat4 viewMatrix;
+    glm::mat4 vpMatrix;
     
-    // Uniforms for program
-    enum
-    {
-        UNIFORM_MVP_MATRIX,
-        NUM_UNIFORMS
-    };
+    Shader* shaderProgram;
     
-    GLint uniforms[NUM_UNIFORMS];
-    GLuint program;
+    // Objects
+    Crate* crate;
 }
 
 @end
@@ -40,7 +37,7 @@
 {
     LOG("Constructed the main scene");
     
-    Crate(glm::vec3(0.0f, 0.0f, 0.0f));
+    crate = new Crate(glm::vec3(0.0f, 0.0f, 0.0f));
     
     return self;
 }
@@ -62,6 +59,8 @@
         glm::vec3(0, 0, 0),
         glm::vec3(0, 1, 0)
     );
+    
+    vpMatrix = projectionMatrix * viewMatrix;
 }
 
 - (void)draw
@@ -70,6 +69,7 @@
     GL_CALL(glViewport(0, 0, (int) viewport.drawableWidth, (int) viewport.drawableHeight));
     GL_CALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     
+    crate->Draw(shaderProgram, vpMatrix);
 }
 
 /// Sets up the GL view
@@ -95,19 +95,7 @@
 /// Sets up the basic program object for the scene
 - (bool)setupShaders
 {
-    Shader::ProgramSource shaderSource;
-    shaderSource.vertexSource = Shader().parseShader([self retrieveFilePathByName:"Shader.vsh"]).vertexSource;
-    shaderSource.fragmentSource = Shader().parseShader([self retrieveFilePathByName:"Shader.fsh"]).fragmentSource;
-    
-    GLuint programObject = Shader().createShader(shaderSource.vertexSource, shaderSource.fragmentSource);
-    GL_CALL(glUseProgram(programObject));
-    ASSERT(programObject != 0)
-    
-    // Retrieve uniforms
-    uniforms[UNIFORM_MVP_MATRIX] = glGetUniformLocation(programObject, "_mvpMatrix");
-    
-    // Set program object
-    program = programObject;
+    shaderProgram = new Shader([self retrieveFilePathByName:"Shader.vsh"], [self retrieveFilePathByName:"Shader.fsh"]);
     
     return true;
 }
