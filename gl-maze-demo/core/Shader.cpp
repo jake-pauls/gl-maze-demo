@@ -15,6 +15,11 @@
 Shader::Shader()
 { }
 
+Shader::~Shader()
+{
+    GL_CALL(glDeleteProgram(_programId));
+}
+
 Shader::Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath)
     : _filePaths{vertexFilePath, fragmentFilePath}, _programId(0)
 {
@@ -61,9 +66,29 @@ int Shader::GetUniformLocation(const std::string& name)
     return location;
 }
 
+void Shader::SetUniform1f(const std::string& name, float f0)
+{
+    GL_CALL(glUniform1f(GetUniformLocation(name), f0));
+}
+
+void Shader::SetUniform1i(const std::string& name, int i0)
+{
+    GL_CALL(glUniform1i(GetUniformLocation(name), i0));
+}
+
 void Shader::SetUniform4f(const std::string& name, float f0, float f1, float f2, float f3)
 {
     GL_CALL(glUniform4f(GetUniformLocation(name), f0, f1, f2, f3));
+}
+
+void Shader::SetUniform4fv(const std::string& name, GLfloat* vector)
+{
+    GL_CALL(glUniform4fv(GetUniformLocation(name), 1, vector));
+}
+
+void Shader::SetUniformMatrix3fv(const std::string& name, const GLfloat* matrix)
+{
+    GL_CALL(glUniformMatrix3fv(GetUniformLocation(name), 1, GL_FALSE, matrix));
 }
 
 void Shader::SetUniformMatrix4fv(const std::string& name, const GLfloat* matrix)

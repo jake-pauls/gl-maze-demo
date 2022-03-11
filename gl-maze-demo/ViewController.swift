@@ -28,6 +28,7 @@ class ViewController: GLKViewController {
             
             scene = Scene()
             scene.setup(view)
+            scene.loadModels()
         }
     }
     
@@ -39,5 +40,10 @@ class ViewController: GLKViewController {
     // Renders the scene each frame
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
         scene.draw()
+    }
+    
+    @IBAction func toggle(_sender: Any) {
+       NSLog("Toggled fog")
+        scene.useFog = !scene.useFog
     }
 }

@@ -12,8 +12,10 @@
 
 @interface Scene : NSObject
 
-- (void)load;
-- (void)setup:(GLKView*)view;
+@property bool useFog;
+
+- (void)setup:(GLKView *)view;
+- (void)loadModels;
 - (void)update;
 - (void)draw;
 

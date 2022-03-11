@@ -15,11 +15,11 @@
 class Shader
 {
 private:
-    GLuint _programId;
     std::string _filePaths[2];
     std::unordered_map<std::string, int> _uniformLocations;
     
 public:
+    GLuint _programId;
     struct ProgramSource
     {
         std::string vertexSource;
@@ -34,11 +34,17 @@ public:
     };
 
     Shader();
+    ~Shader();
     Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath);
     
     void Bind();
     void Unbind();
+    
+    void SetUniform1f(const std::string& name, float f0);
+    void SetUniform1i(const std::string& name, int i0);
     void SetUniform4f(const std::string& name, float f0, float f1, float f2, float f3);
+    void SetUniform4fv(const std::string& name, GLfloat* vector);
+    void SetUniformMatrix3fv(const std::string& name, const GLfloat* matrix);
     void SetUniformMatrix4fv(const std::string& name, const GLfloat* matrix);
     
 private:

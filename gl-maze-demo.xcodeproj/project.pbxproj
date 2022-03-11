@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		404BCBE427DB20E300FA9665 /* TextureLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 404BCBE327DB20E300FA9665 /* TextureLoader.mm */; };
 		40E4D10727D85FBB00ED405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10627D85FBB00ED405A /* AppDelegate.swift */; };
 		40E4D10927D85FBB00ED405A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10827D85FBB00ED405A /* SceneDelegate.swift */; };
 		40E4D10B27D85FBB00ED405A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10A27D85FBB00ED405A /* ViewController.swift */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		404BCBE327DB20E300FA9665 /* TextureLoader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextureLoader.mm; sourceTree = "<group>"; };
+		404BCBE527DB210100FA9665 /* TextureLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureLoader.h; sourceTree = "<group>"; };
 		40E4D10327D85FBB00ED405A /* gl-maze-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gl-maze-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40E4D10627D85FBB00ED405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40E4D10827D85FBB00ED405A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +63,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		404BCBE627DB3A7600FA9665 /* maze */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = maze;
+			sourceTree = "<group>";
+		};
 		40E4D0FA27D85FBB00ED405A = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +101,8 @@
 				40E4D10F27D85FBC00ED405A /* Assets.xcassets */,
 				40E4D11127D85FBC00ED405A /* LaunchScreen.storyboard */,
 				40E4D11427D85FBC00ED405A /* Info.plist */,
+				404BCBE527DB210100FA9665 /* TextureLoader.h */,
+				404BCBE327DB20E300FA9665 /* TextureLoader.mm */,
 				40E4D12027D878EA00ED405A /* Scene.h */,
 				40E4D11E27D878C100ED405A /* Scene.mm */,
 				40E4D12227D87AC200ED405A /* Assert.hpp */,
@@ -128,6 +140,7 @@
 		40E4D12B27D88CC900ED405A /* core */ = {
 			isa = PBXGroup;
 			children = (
+				404BCBE627DB3A7600FA9665 /* maze */,
 				40E4D12C27D88D2B00ED405A /* Mesh.cpp */,
 				40E4D12D27D88D2B00ED405A /* Mesh.hpp */,
 				40E4D12F27D8976500ED405A /* Shader.cpp */,
@@ -232,6 +245,7 @@
 				40E4D12A27D887FE00ED405A /* Crate.cpp in Sources */,
 				40E4D13127D8976500ED405A /* Shader.cpp in Sources */,
 				40E4D10727D85FBB00ED405A /* AppDelegate.swift in Sources */,
+				404BCBE427DB20E300FA9665 /* TextureLoader.mm in Sources */,
 				40E4D12E27D88D2B00ED405A /* Mesh.cpp in Sources */,
 				40E4D10927D85FBB00ED405A /* SceneDelegate.swift in Sources */,
 				40E4D12327D87AC200ED405A /* Assert.cpp in Sources */,

@@ -15,21 +15,21 @@ class Mesh
 public:
     struct MeshData {
         const float* vertices;
-        int verticesSize;
+        float verticesSize;
         
         const float* normals;
-        int normalsSize;
+        float normalsSize;
+        
+        const float* textures;
+        float texturesSize;
         
         const GLuint* indices;
+        float indicesSize;
         int numberOfIndices;
     };
     
     GLuint VAO;
-    GLuint IBO;
-    
-    // Buffers
-    GLuint vertexBuffer;
-    GLuint normalBuffer;
+    GLuint VBO, NBO, TBO, IBO;     // Buffer Objects (vertex, normal, texture, index)
     
     void SetupMesh(MeshData data);
 };

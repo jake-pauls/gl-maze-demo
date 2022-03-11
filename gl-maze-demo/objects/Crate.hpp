@@ -18,12 +18,17 @@ class Crate : public Mesh
 public:
     Crate();
     Crate(glm::vec3 pos);
-    void Update();
-    void Draw(Shader* shaderProgram, glm::mat4 vpMatrix);
+    void Update(glm::mat4 vpMatrix);
+    void Draw(Shader* shaderProgram);
     
 private:
+    glm::mat4 _mvpMatrix, _modelMatrix;
+    glm::mat3 _normalMatrix;
+    
     glm::vec3 _pos;
     float _rot;
+    
+    std::chrono::time_point<std::chrono::steady_clock> _lastTime;
 };
 
 #endif /* Crate_hpp */
