@@ -5,28 +5,14 @@
 //  Created by Jake Pauls on 2022-03-08.
 //
 
-
-#include "CrateData.h"
-
 #include "Crate.hpp"
 #include "Assert.hpp"
 
 Crate::Crate() { }
 
-Crate::Crate(glm::vec3 pos) : _pos(pos), _rot(0.0f)
+Crate::Crate(Mesh* mesh, glm::vec3 pos)
+    : _mesh(mesh), _pos(pos), _rot(0.0f)
 {
-    Mesh::SetupMesh(MeshData{
-        CrateVertices,
-        sizeof(CrateVertices),
-        CrateNormals,
-        sizeof(CrateNormals),
-        CrateTextureCoords,
-        sizeof(CrateTextureCoords),
-        CrateIndices,
-        sizeof(CrateIndices),
-        NumberOfCrateIndices
-    });
-    
     _lastTime = std::chrono::steady_clock::now();
 }
     
@@ -65,9 +51,9 @@ void Crate::Draw(Shader* shaderProgram)
     shaderProgram->Bind();
     
     // Bind vertex array and index buffer
-    GL_CALL(glBindVertexArray(Mesh::VAO));
-    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Mesh::IBO));
-    GL_CALL(glDrawElements(GL_TRIANGLES, NumberOfCrateIndices, GL_UNSIGNED_INT, 0));
+    GL_CALL(glBindVertexArray(_mesh->VAO));
+    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _mesh->IBO));
+    GL_CALL(glDrawElements(GL_TRIANGLES, _mesh->NumberOfMeshIndices, GL_UNSIGNED_INT, 0));
     
     // Unbind vertex array
     GL_CALL(glBindVertexArray(0));

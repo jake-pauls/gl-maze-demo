@@ -19,14 +19,16 @@
 #include "Shader.hpp"
 #include "Mesh.hpp"
 
-class Floor : public Mesh
+class Floor
 {
 public:
     Floor();
-    Floor(glm::vec3 pos);
+    Floor(Mesh* mesh, glm::vec3 pos);
     void Draw(Shader* shaderProgram, glm::mat4 vpMatrix);
     
 private:
+    Mesh* _mesh;
+    
     glm::mat4 _mvpMatrix, _modelMatrix;
     glm::mat3 _normalMatrix;
     

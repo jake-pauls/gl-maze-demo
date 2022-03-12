@@ -31,6 +31,8 @@ public:
     GLuint VAO;
     GLuint VBO, NBO, TBO, IBO;     // Buffer Objects (vertex, normal, texture, index)
     
+    int NumberOfMeshIndices;
+    
     void SetupMesh(MeshData data);
 };
 

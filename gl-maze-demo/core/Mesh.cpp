@@ -12,6 +12,9 @@ void Mesh::SetupMesh(MeshData data)
 {
     LOG("Setting up mesh data...");
     
+    // Set local indices count
+    NumberOfMeshIndices = data.numberOfIndices;
+    
     GL_CALL(glGenVertexArrays(1, &VAO));
     GL_CALL(glBindVertexArray(VAO));
     

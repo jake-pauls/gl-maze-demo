@@ -21,15 +21,17 @@
 #include "Shader.hpp"
 #include "Mesh.hpp"
 
-class Crate : public Mesh
+class Crate
 {
 public:
     Crate();
-    Crate(glm::vec3 pos);
+    Crate(Mesh* mesh, glm::vec3 pos);
     void Update(glm::mat4 vpMatrix);
     void Draw(Shader* shaderProgram);
     
 private:
+    Mesh* _mesh;
+    
     glm::mat4 _mvpMatrix, _modelMatrix;
     glm::mat3 _normalMatrix;
     

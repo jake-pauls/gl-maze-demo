@@ -21,19 +21,21 @@
 #include "Shader.hpp"
 #include "Mesh.hpp"
 
-class Wall : public Mesh
+class Wall
 {
 public:
     Wall();
-    Wall(glm::vec3 pos);
-    Wall(glm::vec3 pos, glm::vec3 rot, float rotAngle);
+    Wall(Mesh* mesh, glm::vec3 pos);
+    Wall(Mesh* mesh, glm::vec3 pos, float rotAngle);
     void Draw(Shader* shaderProgram, glm::mat4 vpMatrix);
     
 private:
+    Mesh* _mesh;
+    
     glm::mat4 _mvpMatrix, _modelMatrix;
     glm::mat3 _normalMatrix;
     
-    glm::vec3 _pos, _rot;
+    glm::vec3 _pos;
     float _rotAngle;
 };
 

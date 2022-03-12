@@ -7,27 +7,14 @@
 
 #include <OpenGLES/ES3/gl.h>
 
-#include "CrateData.h"
-
 #include "Floor.hpp"
 #include "Assert.hpp"
 
 Floor::Floor() { }
 
-Floor::Floor(glm::vec3 pos) : _pos(pos)
-{
-    Mesh::SetupMesh(MeshData{
-        CrateVertices,
-        sizeof(CrateVertices),
-        CrateNormals,
-        sizeof(CrateNormals),
-        CrateTextureCoords,
-        sizeof(CrateTextureCoords),
-        CrateIndices,
-        sizeof(CrateIndices),
-        NumberOfCrateIndices
-    });
-}
+Floor::Floor(Mesh* mesh, glm::vec3 pos)
+    : _mesh(mesh), _pos(pos)
+{ }
 
 void Floor::Draw(Shader *shaderProgram, glm::mat4 vpMatrix)
 {
@@ -56,9 +43,9 @@ void Floor::Draw(Shader *shaderProgram, glm::mat4 vpMatrix)
     shaderProgram->Bind();
     
     // Bind vertex array and index buffer
-    GL_CALL(glBindVertexArray(Mesh::VAO));
-    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Mesh::IBO));
-    GL_CALL(glDrawElements(GL_TRIANGLES, NumberOfCrateIndices, GL_UNSIGNED_INT, 0));
+    GL_CALL(glBindVertexArray(_mesh->VAO));
+    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _mesh->IBO));
+    GL_CALL(glDrawElements(GL_TRIANGLES, _mesh->NumberOfMeshIndices, GL_UNSIGNED_INT, 0));
     
     // Unbind vertex array
     GL_CALL(glBindVertexArray(0));
