@@ -1,19 +1,20 @@
 //
-//  Crate.cpp
+//  Floor.cpp
 //  gl-maze-demo
 //
-//  Created by Jake Pauls on 2022-03-08.
+//  Created by Jake Pauls on 2022-03-11.
 //
 
+#include <OpenGLES/ES3/gl.h>
 
 #include "CrateData.h"
 
-#include "Crate.hpp"
+#include "Floor.hpp"
 #include "Assert.hpp"
 
-Crate::Crate() { }
+Floor::Floor() { }
 
-Crate::Crate(glm::vec3 pos) : _pos(pos), _rot(0.0f)
+Floor::Floor(glm::vec3 pos) : _pos(pos)
 {
     Mesh::SetupMesh(MeshData{
         CrateVertices,
@@ -26,31 +27,21 @@ Crate::Crate(glm::vec3 pos) : _pos(pos), _rot(0.0f)
         sizeof(CrateIndices),
         NumberOfCrateIndices
     });
-    
-    _lastTime = std::chrono::steady_clock::now();
 }
-    
-void Crate::Update(glm::mat4 vpMatrix)
+
+void Floor::Draw(Shader *shaderProgram, glm::mat4 vpMatrix)
 {
-    auto currentTime = std::chrono::steady_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - _lastTime).count();
-    _lastTime = currentTime;
+    // Calculate initial mvp matrix
+    _modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(12.0f, 1.0f, 12.0f));
+    _modelMatrix = glm::translate(_modelMatrix, _pos);
+    _modelMatrix = glm::rotate(_modelMatrix, 0.0f, glm::vec3(0.0, 1.0, 0.0));
     
-    _rot += 0.001f * elapsedTime;
-    if (_rot >= 360.0f)
-        _rot = 0.0f;
-    
-    _modelMatrix = glm::translate(glm::mat4(1.0f), _pos);
-    _modelMatrix = glm::rotate(_modelMatrix, _rot, glm::vec3(0.0, 1.0, 0.0));
     _normalMatrix = glm::inverseTranspose(glm::mat3(_modelMatrix));
     
     _mvpMatrix = vpMatrix * _modelMatrix;
-}
-
-void Crate::Draw(Shader* shaderProgram)
-{
+    
     // Uniform Vectors
-    glm::vec4 diffuseLightPosition(0.0f, 1.0f, 0.0f, 1.0f);
+    glm::vec4 diffuseLightPosition(0.5f, 0.5f, 0.5f, 1.0f);
     glm::vec4 diffuseComponent(1.0f, 1.0f, 1.0f, 1.0f);
     
     // Set Uniforms

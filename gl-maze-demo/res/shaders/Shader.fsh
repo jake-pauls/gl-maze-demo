@@ -39,7 +39,8 @@ void main()
     vec3 H = normalize(L+E);
     float Ks = pow(max(dot(N, H), 0.0), shininess);
     vec4 specular = Ks*specularComponent;
-    if( dot(L, N) < 0.0 ) {
+    
+    if(dot(L, N) < 0.0) {
         // if the dot product is negative, this is a fragment on the other side of the object and hence not affected by the specular light
         specular = vec4(0.0, 0.0, 0.0, 1.0);
     }

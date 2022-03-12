@@ -43,7 +43,6 @@ class ViewController: GLKViewController {
     }
     
     @IBAction func toggle(_sender: Any) {
-       NSLog("Toggled fog")
         scene.useFog = !scene.useFog
     }
 }

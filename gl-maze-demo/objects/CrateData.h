@@ -8,6 +8,8 @@
 #ifndef CrateData_h
 #define CrateData_h
 
+#include <OpenGLES/ES3/gl.h>
+
 const int NumberOfCrateVertices = 24;
 const int NumberOfCrateIndices = 36;
 
