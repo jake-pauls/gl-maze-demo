@@ -10,6 +10,7 @@
 		404BCBE427DB20E300FA9665 /* TextureLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 404BCBE327DB20E300FA9665 /* TextureLoader.mm */; };
 		404BCBEB27DB3B5400FA9665 /* DisjointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 404BCBE727DB3B5400FA9665 /* DisjointSet.cpp */; };
 		404BCBEC27DB3B5400FA9665 /* Maze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 404BCBE827DB3B5400FA9665 /* Maze.cpp */; };
+		40B4AA2727E00059007FDF09 /* MazeBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40B4AA2527E00059007FDF09 /* MazeBuilder.cpp */; };
 		40E4D10727D85FBB00ED405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10627D85FBB00ED405A /* AppDelegate.swift */; };
 		40E4D10927D85FBB00ED405A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10827D85FBB00ED405A /* SceneDelegate.swift */; };
 		40E4D10B27D85FBB00ED405A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10A27D85FBB00ED405A /* ViewController.swift */; };
@@ -37,6 +38,8 @@
 		404BCBE827DB3B5400FA9665 /* Maze.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Maze.cpp; sourceTree = "<group>"; };
 		404BCBE927DB3B5400FA9665 /* DisjointSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisjointSet.h; sourceTree = "<group>"; };
 		404BCBEA27DB3B5400FA9665 /* Maze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Maze.h; sourceTree = "<group>"; };
+		40B4AA2527E00059007FDF09 /* MazeBuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MazeBuilder.cpp; sourceTree = "<group>"; };
+		40B4AA2627E00059007FDF09 /* MazeBuilder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MazeBuilder.hpp; sourceTree = "<group>"; };
 		40E4D10327D85FBB00ED405A /* gl-maze-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gl-maze-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40E4D10627D85FBB00ED405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40E4D10827D85FBB00ED405A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +176,8 @@
 				40E4D12D27D88D2B00ED405A /* Mesh.hpp */,
 				40E4D12F27D8976500ED405A /* Shader.cpp */,
 				40E4D13027D8976500ED405A /* Shader.hpp */,
+				40B4AA2527E00059007FDF09 /* MazeBuilder.cpp */,
+				40B4AA2627E00059007FDF09 /* MazeBuilder.hpp */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 				40E4D10927D85FBB00ED405A /* SceneDelegate.swift in Sources */,
 				40E4D12327D87AC200ED405A /* Assert.cpp in Sources */,
 				40E4D11F27D878C100ED405A /* Scene.mm in Sources */,
+				40B4AA2727E00059007FDF09 /* MazeBuilder.cpp in Sources */,
 				404BCBEC27DB3B5400FA9665 /* Maze.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

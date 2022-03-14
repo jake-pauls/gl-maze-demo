@@ -27,6 +27,7 @@
 #include "Assert.hpp"
 #include "Shader.hpp"
 #include "Mesh.hpp"
+#include "MazeBuilder.hpp"
 #include "Crate.hpp"
 #include "Floor.hpp"
 #include "Wall.hpp"
@@ -55,15 +56,12 @@
     Floor* _floor;
     Wall* _wall;
     
-    // Wall Generation
-    std::vector<Wall*> _wallList;
-    
     // MVP Matrices
     glm::mat4 _projectionMatrix;
     glm::mat4 _viewMatrix;
     glm::mat4 _viewProjectionMatrix;
     
-    Maze* _maze;
+    MazeBuilder* mazeBuilder;
 }
 
 @end
@@ -105,6 +103,10 @@
     _cubeMesh = new Mesh();
     _planeMesh = new Mesh();
     
+    // Initialize MazeBuilder
+    mazeBuilder = new MazeBuilder(_planeMesh, _cubeMesh);
+    mazeBuilder->PrintMazeDebug();
+    
     GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
     GL_CALL(glEnable(GL_DEPTH_TEST));
     GL_CALL(glEnable(GL_CULL_FACE));
@@ -117,105 +119,11 @@
     ASSERT([self loadMeshes]);
     
     // Create objects
-    _crate = new Crate(_cubeMesh, glm::vec3(1.0f, 0.0f, 0.0f));
-    _wall = new Wall(_planeMesh, glm::vec3(1.0f, 1.0f, 0.0f), 180.0f);
+    _crate = new Crate(_cubeMesh, glm::vec3(0.0f, -0.5f, 0.0f));
+    _wall = new Wall(_planeMesh, glm::vec3(0.0f, -1.0f, 0.0f), 180.0f);
     _floor = new Floor(_cubeMesh, glm::vec3(0.0f, -1.0f, 0.0f));
     
-    // Create new maze
-    // 0 - False, 1 - True
-    _maze = new Maze();
-    _maze->Create();
-    
-    // Maze Debug
-    int i, j;
-    int numRows = 4, numCols = 4;
-   
-    for (i=numRows-1; i>=0; i--) {
-        for (j=numCols-1; j>=0; j--) {    // top
-            printf(" %c ", _maze->GetCell(i, j).southWallPresent ? '-' : ' ');
-        }
-        printf("\n");
-        for (j=numCols-1; j>=0; j--) {    // left/right
-            printf("%c", _maze->GetCell(i, j).eastWallPresent ? '|' : ' ');
-            printf("%c", ((i+j) < 1) ? '*' : ' ');
-            printf("%c", _maze->GetCell(i, j).westWallPresent ? '|' : ' ');
-        }
-        printf("\n");
-        for (j=numCols-1; j>=0; j--) {    // bottom
-            printf(" %c ", _maze->GetCell(i, j).northWallPresent ? '-' : ' ');
-        }
-        printf("\n");
-    }
-
-    // Texture checking
-    MazeCell currentCell, tempCell;
-    int wallCount;
-    
-    for (int i = 0; i < _maze->rows; i++) {
-        for (int j = 0; j < _maze->cols; j++) {
-            // For each cell, count the number of walls adjacent to the cell
-            // 1. Check in the cell against each wall
-            currentCell = _maze->GetCell(i, j);
-            wallCount = 0;
-            
-            LOG("[" << i << "," << j << "] South Check");
-            if (currentCell.southWallPresent) {
-                // Check for walls in same cell
-                if (currentCell.eastWallPresent) {
-                    wallCount++;
-                } else {
-                    if ([self CanCheckCell:i j:j]) {
-                        // Check for walls beside
-                        tempCell = _maze->GetCell(i, j+1);
-                        if (tempCell.southWallPresent) {
-                            wallCount++;
-                        } else {
-                            // Check walls behind
-                            // Go up a cell, check the correct side
-                            tempCell = _maze->GetCell(i+1, j+1);
-                            if (tempCell.westWallPresent) {
-                                wallCount++;
-                            }
-                        }
-                    }
-                }
-                
-                if (currentCell.westWallPresent) {
-                    wallCount++;
-                } else {
-                    if ([self CanCheckCell:i j:j]) {
-                        tempCell = _maze->GetCell(i, j-1);
-                        if (tempCell.southWallPresent) {
-                            wallCount++;
-                        } else {
-                            tempCell = _maze->GetCell(i+1, j-1);
-                            if (tempCell.eastWallPresent) {
-                                wallCount++;
-                            }
-                        }
-                    }
-                }
-            }
-            LOG("Count: " << wallCount);
-        }
-    }
-    
-    // for (int i = 0; i < _maze->rows; i++)
-    // {
-        // for (int j = 0; j < _maze->cols; j++)
-        // {
-            // MazeCell cell = _maze->GetCell(i, j);
-            
-            // float wallOffset = 0.45;
-            // _cellPosition = glm::vec3(i, 1.0f, j);
-            
-            // if (cell.northWallPresent) {
-            //    _wallPosition = _cellPosition;
-            //    _wallPosition.z += wallOffset;
-            //    _wallList.push_back(new Wall(_wallPosition));
-            // }
-        // }
-    // }
+    mazeBuilder->DrawWalls();
 }
 
 /// EXTRACT THIS, REPLACE WITH MAZE DIMENSIONS
@@ -231,8 +139,8 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(0, 0.5, -4),     // Camera is Positioned Here
-        glm::vec3(0, 0.5, 0),     // Camera Looks at this Point
+        glm::vec3(-5, 10, -5),     // Camera is Positioned Here
+        glm::vec3(10, 0.5, 10),     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );
     
@@ -259,12 +167,9 @@
     GL_CALL(glBindTexture(GL_TEXTURE_2D, _crateTexture));
     _crate->Draw(_shaderProgram);
     
-    // Draw test Wall
-    _wall->Draw(_shaderProgram, _viewProjectionMatrix);
-    
     // Draw walls
-    // for (int i = 0; i < _wallList.size(); i++)
-    //    _wallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
+    for (int i = 0; i < mazeBuilder->WallList.size(); i++)
+        mazeBuilder->WallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
     
     // Draw Floor
     GL_CALL(glBindTexture(GL_TEXTURE_2D, _grassTexture));
