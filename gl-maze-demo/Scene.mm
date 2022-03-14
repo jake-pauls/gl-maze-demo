@@ -123,12 +123,12 @@
     
     // Create new maze
     // 0 - False, 1 - True
-    _maze = new Maze();
+    _maze = new Maze(10,10);
     _maze->Create();
     
     // Maze Debug
     int i, j;
-    int numRows = 4, numCols = 4;
+    int numRows = 10, numCols = 10;
    
     for (i=numRows-1; i>=0; i--) {
         for (j=numCols-1; j>=0; j--) {    // top
@@ -190,8 +190,8 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(-1, 2, -1),     // Camera is Positioned Here
-        glm::vec3(4, 0.5, 4),     // Camera Looks at this Point
+        glm::vec3(-5, 10, -5),     // Camera is Positioned Here
+        glm::vec3(10, 0.5, 10),     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );
     
