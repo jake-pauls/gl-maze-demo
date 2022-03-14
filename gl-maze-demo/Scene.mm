@@ -117,8 +117,8 @@
     ASSERT([self loadMeshes]);
     
     // Create objects
-    _crate = new Crate(_cubeMesh, glm::vec3(1.0f, 0.0f, 0.0f));
-    _wall = new Wall(_planeMesh, glm::vec3(0.0f, 0.0f, 0.0f), 180.0f);
+    _crate = new Crate(_cubeMesh, glm::vec3(0.0f, -0.5f, 0.0f));
+    _wall = new Wall(_planeMesh, glm::vec3(0.0f, -1.0f, 0.0f), 180.0f);
     _floor = new Floor(_cubeMesh, glm::vec3(0.0f, -1.0f, 0.0f));
     
     // Create new maze
@@ -147,21 +147,38 @@
         printf("\n");
     }
 
-    
-    for (int i = 0; i < _maze->rows; i++)
-    {
-        for (int j = 0; j < _maze->cols; j++)
-        {
-            // MazeCell cell = _maze->GetCell(i, j);
+    for (int i = 0; i < _maze->rows; i++) {
+        for (int j = 0; j < _maze->cols; j++) {
             
-            // float wallOffset = 0.45;
-            // _cellPosition = glm::vec3(i, 1.0f, j);
+             MazeCell cell = _maze->GetCell(i, j);
             
-            // if (cell.northWallPresent) {
-            //    _wallPosition = _cellPosition;
-            //    _wallPosition.z += wallOffset;
-            //    _wallList.push_back(new Wall(_wallPosition));
-            // }
+             float wallOffset = 0.5f;
+             glm::vec3 _cellPosition = glm::vec3(j, 0.0f, i);
+            
+             if (cell.northWallPresent) {
+                glm::vec3 _wallPosition = _cellPosition;
+                 float _wallRotation = 0.0f;
+                _wallPosition.z -= wallOffset;
+                 _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
+             }
+            if (cell.southWallPresent) {
+               glm::vec3 _wallPosition = _cellPosition;
+                float _wallRotation = 180.0f;
+               _wallPosition.z += wallOffset;
+                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
+            }
+            if (cell.eastWallPresent) {
+               glm::vec3 _wallPosition = _cellPosition;
+                float _wallRotation = -90.0f;
+               _wallPosition.x += wallOffset;
+                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
+            }
+            if (cell.westWallPresent) {
+               glm::vec3 _wallPosition = _cellPosition;
+                float _wallRotation = 90.0f;
+               _wallPosition.x -= wallOffset;
+                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
+            }
         }
     }
 }
@@ -173,8 +190,8 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(0, 0.5, -4),     // Camera is Positioned Here
-        glm::vec3(0, 0.5, 0),     // Camera Looks at this Point
+        glm::vec3(-1, 2, -1),     // Camera is Positioned Here
+        glm::vec3(4, 0.5, 4),     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );
     
@@ -202,11 +219,12 @@
     _crate->Draw(_shaderProgram);
     
     // Draw test Wall
-    _wall->Draw(_shaderProgram, _viewProjectionMatrix);
+//    _wall->Draw(_shaderProgram, _viewProjectionMatrix);
     
     // Draw walls
-    // for (int i = 0; i < _wallList.size(); i++)
-    //    _wallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
+    int i;
+    for (i = 0; i < _wallList.size(); i++)
+        _wallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
     
     // Draw Floor
     GL_CALL(glBindTexture(GL_TEXTURE_2D, _grassTexture));
