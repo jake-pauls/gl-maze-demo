@@ -27,6 +27,7 @@
 #include "Assert.hpp"
 #include "Shader.hpp"
 #include "Mesh.hpp"
+#include "MazeBuilder.hpp"
 #include "Crate.hpp"
 #include "Floor.hpp"
 #include "Wall.hpp"
@@ -55,15 +56,12 @@
     Floor* _floor;
     Wall* _wall;
     
-    // Wall Generation
-    std::vector<Wall*> _wallList;
-    
     // MVP Matrices
     glm::mat4 _projectionMatrix;
     glm::mat4 _viewMatrix;
     glm::mat4 _viewProjectionMatrix;
     
-    Maze* _maze;
+    MazeBuilder* mazeBuilder;
 }
 
 @end
@@ -105,6 +103,10 @@
     _cubeMesh = new Mesh();
     _planeMesh = new Mesh();
     
+    // Initialize MazeBuilder
+    mazeBuilder = new MazeBuilder(_planeMesh, _cubeMesh);
+    mazeBuilder->PrintMazeDebug();
+    
     GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
     GL_CALL(glEnable(GL_DEPTH_TEST));
     GL_CALL(glEnable(GL_CULL_FACE));
@@ -121,66 +123,13 @@
     _wall = new Wall(_planeMesh, glm::vec3(0.0f, -1.0f, 0.0f), 180.0f);
     _floor = new Floor(_cubeMesh, glm::vec3(0.0f, -1.0f, 0.0f));
     
-    // Create new maze
-    // 0 - False, 1 - True
-    _maze = new Maze(10,10);
-    _maze->Create();
-    
-    // Maze Debug
-    int i, j;
-    int numRows = 10, numCols = 10;
-   
-    for (i=numRows-1; i>=0; i--) {
-        for (j=numCols-1; j>=0; j--) {    // top
-            printf(" %c ", _maze->GetCell(i, j).southWallPresent ? '-' : ' ');
-        }
-        printf("\n");
-        for (j=numCols-1; j>=0; j--) {    // left/right
-            printf("%c", _maze->GetCell(i, j).eastWallPresent ? '|' : ' ');
-            printf("%c", ((i+j) < 1) ? '*' : ' ');
-            printf("%c", _maze->GetCell(i, j).westWallPresent ? '|' : ' ');
-        }
-        printf("\n");
-        for (j=numCols-1; j>=0; j--) {    // bottom
-            printf(" %c ", _maze->GetCell(i, j).northWallPresent ? '-' : ' ');
-        }
-        printf("\n");
-    }
+    mazeBuilder->DrawWalls();
+}
 
-    for (int i = 0; i < _maze->rows; i++) {
-        for (int j = 0; j < _maze->cols; j++) {
-            
-             MazeCell cell = _maze->GetCell(i, j);
-            
-             float wallOffset = 0.5f;
-             glm::vec3 _cellPosition = glm::vec3(j, 0.0f, i);
-            
-             if (cell.northWallPresent) {
-                glm::vec3 _wallPosition = _cellPosition;
-                 float _wallRotation = 0.0f;
-                _wallPosition.z -= wallOffset;
-                 _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
-             }
-            if (cell.southWallPresent) {
-               glm::vec3 _wallPosition = _cellPosition;
-                float _wallRotation = 180.0f;
-               _wallPosition.z += wallOffset;
-                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
-            }
-            if (cell.eastWallPresent) {
-               glm::vec3 _wallPosition = _cellPosition;
-                float _wallRotation = -90.0f;
-               _wallPosition.x += wallOffset;
-                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
-            }
-            if (cell.westWallPresent) {
-               glm::vec3 _wallPosition = _cellPosition;
-                float _wallRotation = 90.0f;
-               _wallPosition.x -= wallOffset;
-                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
-            }
-        }
-    }
+/// EXTRACT THIS, REPLACE WITH MAZE DIMENSIONS
+- (bool) CanCheckCell:(int)i j:(int)j
+{
+    return i <= 3 && j <= 3 && i >= 1 && j >= 1;
 }
 
 /// Update is called once per frame
@@ -218,13 +167,9 @@
     GL_CALL(glBindTexture(GL_TEXTURE_2D, _crateTexture));
     _crate->Draw(_shaderProgram);
     
-    // Draw test Wall
-//    _wall->Draw(_shaderProgram, _viewProjectionMatrix);
-    
     // Draw walls
-    int i;
-    for (i = 0; i < _wallList.size(); i++)
-        _wallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
+    for (int i = 0; i < mazeBuilder->WallList.size(); i++)
+        mazeBuilder->WallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
     
     // Draw Floor
     GL_CALL(glBindTexture(GL_TEXTURE_2D, _grassTexture));
