@@ -117,9 +117,9 @@
     ASSERT([self loadMeshes]);
     
     // Create objects
-    _crate = new Crate(_cubeMesh, glm::vec3(2.0f, 1.0f, 0.0f));
-    _wall = new Wall(_planeMesh, glm::vec3(0.0f, 1.0f, 0.0f), 0.0f);
-    _floor = new Floor(_cubeMesh, glm::vec3(0.0f, 0.0f, 0.0f));
+    _crate = new Crate(_cubeMesh, glm::vec3(2.0f, 0.0f, 0.0f));
+    _wall = new Wall(_planeMesh, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
+    _floor = new Floor(_cubeMesh, glm::vec3(0.0f, -1.0f, 0.0f));
     
     // Create new maze
     // 0 - False, 1 - True
@@ -129,24 +129,24 @@
     // Maze Debug
     int i, j;
     int numRows = 4, numCols = 4;
-    
-    for (i = numRows - 1; i >= 0; i--) {
-        for (j = numCols - 1; j >= 0; j--) {
-            printf("%c", _maze->GetCell(i, j).southWallPresent ? '-' : ' ');
+   
+    for (i=numRows-1; i>=0; i--) {
+        for (j=numCols-1; j>=0; j--) {    // top
+            printf(" %c ", _maze->GetCell(i, j).southWallPresent ? '-' : ' ');
         }
         printf("\n");
-        for (j = numCols - 1; j >= 0; j--) {
+        for (j=numCols-1; j>=0; j--) {    // left/right
             printf("%c", _maze->GetCell(i, j).eastWallPresent ? '|' : ' ');
-            printf("%c", ((i + j) < 1) ? '*' : ' ');
+            printf("%c", ((i+j) < 1) ? '*' : ' ');
             printf("%c", _maze->GetCell(i, j).westWallPresent ? '|' : ' ');
         }
         printf("\n");
-        
-        for (j = numCols - 1; j >= 0; j--) {
-            printf("%c", _maze->GetCell(i, j).northWallPresent ? '-' : ' ');
+        for (j=numCols-1; j>=0; j--) {    // bottom
+            printf(" %c ", _maze->GetCell(i, j).northWallPresent ? '-' : ' ');
         }
         printf("\n");
     }
+
     
     for (int i = 0; i < _maze->rows; i++)
     {
@@ -173,8 +173,8 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(0, 2, 6),     // Camera is Positioned Here
-        glm::vec3(0, 2, 0),     // Camera Looks at this Point
+        glm::vec3(0, 0, -2),     // Camera is Positioned Here
+        glm::vec3(0, 0.5, 0),     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );
     
