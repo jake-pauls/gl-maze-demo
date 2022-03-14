@@ -17,8 +17,8 @@
 
 class MazeBuilder {
 public:
-    const int MAZE_COLUMNS = 10;
-    const int MAZE_ROWS = 10;
+    const int MAZE_COLUMNS = 4;
+    const int MAZE_ROWS = 4;
     
     MazeBuilder();
     MazeBuilder(Mesh* planeMesh, Mesh* cubeMesh);
