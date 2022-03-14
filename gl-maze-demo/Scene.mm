@@ -117,51 +117,68 @@
     ASSERT([self loadMeshes]);
     
     // Create objects
-    _crate = new Crate(_cubeMesh, glm::vec3(2.0f, 1.0f, 0.0f));
-    _wall = new Wall(_planeMesh, glm::vec3(0.0f, 1.0f, 0.0f), 0.0f);
-    _floor = new Floor(_cubeMesh, glm::vec3(0.0f, 0.0f, 0.0f));
+    _crate = new Crate(_cubeMesh, glm::vec3(0.0f, -0.5f, 0.0f));
+    _wall = new Wall(_planeMesh, glm::vec3(0.0f, -1.0f, 0.0f), 180.0f);
+    _floor = new Floor(_cubeMesh, glm::vec3(0.0f, -1.0f, 0.0f));
     
     // Create new maze
     // 0 - False, 1 - True
-    _maze = new Maze();
+    _maze = new Maze(10,10);
     _maze->Create();
     
     // Maze Debug
     int i, j;
-    int numRows = 4, numCols = 4;
-    
-    for (i = numRows - 1; i >= 0; i--) {
-        for (j = numCols - 1; j >= 0; j--) {
-            printf("%c", _maze->GetCell(i, j).southWallPresent ? '-' : ' ');
+    int numRows = 10, numCols = 10;
+   
+    for (i=numRows-1; i>=0; i--) {
+        for (j=numCols-1; j>=0; j--) {    // top
+            printf(" %c ", _maze->GetCell(i, j).southWallPresent ? '-' : ' ');
         }
         printf("\n");
-        for (j = numCols - 1; j >= 0; j--) {
+        for (j=numCols-1; j>=0; j--) {    // left/right
             printf("%c", _maze->GetCell(i, j).eastWallPresent ? '|' : ' ');
-            printf("%c", ((i + j) < 1) ? '*' : ' ');
+            printf("%c", ((i+j) < 1) ? '*' : ' ');
             printf("%c", _maze->GetCell(i, j).westWallPresent ? '|' : ' ');
         }
         printf("\n");
-        
-        for (j = numCols - 1; j >= 0; j--) {
-            printf("%c", _maze->GetCell(i, j).northWallPresent ? '-' : ' ');
+        for (j=numCols-1; j>=0; j--) {    // bottom
+            printf(" %c ", _maze->GetCell(i, j).northWallPresent ? '-' : ' ');
         }
         printf("\n");
     }
-    
-    for (int i = 0; i < _maze->rows; i++)
-    {
-        for (int j = 0; j < _maze->cols; j++)
-        {
-            // MazeCell cell = _maze->GetCell(i, j);
+
+    for (int i = 0; i < _maze->rows; i++) {
+        for (int j = 0; j < _maze->cols; j++) {
             
-            // float wallOffset = 0.45;
-            // _cellPosition = glm::vec3(i, 1.0f, j);
+             MazeCell cell = _maze->GetCell(i, j);
             
-            // if (cell.northWallPresent) {
-            //    _wallPosition = _cellPosition;
-            //    _wallPosition.z += wallOffset;
-            //    _wallList.push_back(new Wall(_wallPosition));
-            // }
+             float wallOffset = 0.5f;
+             glm::vec3 _cellPosition = glm::vec3(j, 0.0f, i);
+            
+             if (cell.northWallPresent) {
+                glm::vec3 _wallPosition = _cellPosition;
+                 float _wallRotation = 0.0f;
+                _wallPosition.z -= wallOffset;
+                 _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
+             }
+            if (cell.southWallPresent) {
+               glm::vec3 _wallPosition = _cellPosition;
+                float _wallRotation = 180.0f;
+               _wallPosition.z += wallOffset;
+                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
+            }
+            if (cell.eastWallPresent) {
+               glm::vec3 _wallPosition = _cellPosition;
+                float _wallRotation = -90.0f;
+               _wallPosition.x += wallOffset;
+                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
+            }
+            if (cell.westWallPresent) {
+               glm::vec3 _wallPosition = _cellPosition;
+                float _wallRotation = 90.0f;
+               _wallPosition.x -= wallOffset;
+                _wallList.push_back(new Wall(_planeMesh, _wallPosition, _wallRotation));
+            }
         }
     }
 }
@@ -173,8 +190,8 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(0, 2, 6),     // Camera is Positioned Here
-        glm::vec3(0, 2, 0),     // Camera Looks at this Point
+        glm::vec3(-5, 10, -5),     // Camera is Positioned Here
+        glm::vec3(10, 0.5, 10),     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );
     
@@ -202,11 +219,12 @@
     _crate->Draw(_shaderProgram);
     
     // Draw test Wall
-    _wall->Draw(_shaderProgram, _viewProjectionMatrix);
+//    _wall->Draw(_shaderProgram, _viewProjectionMatrix);
     
     // Draw walls
-    // for (int i = 0; i < _wallList.size(); i++)
-    //    _wallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
+    int i;
+    for (i = 0; i < _wallList.size(); i++)
+        _wallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
     
     // Draw Floor
     GL_CALL(glBindTexture(GL_TEXTURE_2D, _grassTexture));
