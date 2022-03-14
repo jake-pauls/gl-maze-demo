@@ -77,7 +77,7 @@ void MazeBuilder::GetWallCount(MazeCell currentCell, int i, int j)
         if (currentCell.eastWallPresent) {
             wallCount++;
         } else {
-            if (CanCheckCell(i, j)) {
+            if (CanCheckCell(i+1, j+1)) {
                 // Check for walls beside
                 tempCell = _maze->GetCell(i, j+1);
                 if (tempCell.southWallPresent) {
@@ -96,7 +96,7 @@ void MazeBuilder::GetWallCount(MazeCell currentCell, int i, int j)
         if (currentCell.westWallPresent) {
             wallCount++;
         } else {
-            if (CanCheckCell(i, j)) {
+            if (CanCheckCell(i+1, j-1)) {
                 tempCell = _maze->GetCell(i, j-1);
                 if (tempCell.southWallPresent) {
                     wallCount++;
@@ -109,6 +109,7 @@ void MazeBuilder::GetWallCount(MazeCell currentCell, int i, int j)
             }
         }
     }
+    LOG("COUNT: " << wallCount);
 }
 
 void MazeBuilder::PrintMazeDebug()
@@ -141,5 +142,5 @@ void MazeBuilder::PrintMazeDebug()
 
 bool MazeBuilder::CanCheckCell(int i, int j)
 {
-    return i <= MAZE_COLUMNS - 1 && j <= MAZE_COLUMNS - 1 && i >= 1 && j >= 1;
+    return i <= MAZE_COLUMNS - 1 && j <= MAZE_ROWS - 1 && i >= 0 && j >= 0;
 }
