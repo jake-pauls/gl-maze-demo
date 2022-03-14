@@ -118,7 +118,7 @@
     
     // Create objects
     _crate = new Crate(_cubeMesh, glm::vec3(1.0f, 0.0f, 0.0f));
-    _wall = new Wall(_planeMesh, glm::vec3(0.0f, 0.0f, 0.0f), 180.0f);
+    _wall = new Wall(_planeMesh, glm::vec3(1.0f, 1.0f, 0.0f), 180.0f);
     _floor = new Floor(_cubeMesh, glm::vec3(0.0f, -1.0f, 0.0f));
     
     // Create new maze
@@ -147,11 +147,63 @@
         printf("\n");
     }
 
+    // Texture checking
+    MazeCell currentCell, tempCell;
+    int wallCount;
     
-    for (int i = 0; i < _maze->rows; i++)
-    {
-        for (int j = 0; j < _maze->cols; j++)
-        {
+    for (int i = 0; i < _maze->rows; i++) {
+        for (int j = 0; j < _maze->cols; j++) {
+            // For each cell, count the number of walls adjacent to the cell
+            // 1. Check in the cell against each wall
+            currentCell = _maze->GetCell(i, j);
+            wallCount = 0;
+            
+            LOG("[" << i << "," << j << "] South Check");
+            if (currentCell.southWallPresent) {
+                // Check for walls in same cell
+                if (currentCell.eastWallPresent) {
+                    wallCount++;
+                } else {
+                    if ([self CanCheckCell:i j:j]) {
+                        // Check for walls beside
+                        tempCell = _maze->GetCell(i, j+1);
+                        if (tempCell.southWallPresent) {
+                            wallCount++;
+                        } else {
+                            // Check walls behind
+                            // Go up a cell, check the correct side
+                            tempCell = _maze->GetCell(i+1, j+1);
+                            if (tempCell.westWallPresent) {
+                                wallCount++;
+                            }
+                        }
+                    }
+                }
+                
+                if (currentCell.westWallPresent) {
+                    wallCount++;
+                } else {
+                    if ([self CanCheckCell:i j:j]) {
+                        tempCell = _maze->GetCell(i, j-1);
+                        if (tempCell.southWallPresent) {
+                            wallCount++;
+                        } else {
+                            tempCell = _maze->GetCell(i+1, j-1);
+                            if (tempCell.eastWallPresent) {
+                                wallCount++;
+                            }
+                        }
+                    }
+                }
+            }
+            LOG("Count: " << wallCount);
+        }
+    }
+    
+    // for (int i = 0; i < _maze->rows; i++)
+    // {
+        // for (int j = 0; j < _maze->cols; j++)
+        // {
             // MazeCell cell = _maze->GetCell(i, j);
             
             // float wallOffset = 0.45;
@@ -162,8 +214,14 @@
             //    _wallPosition.z += wallOffset;
             //    _wallList.push_back(new Wall(_wallPosition));
             // }
-        }
-    }
+        // }
+    // }
+}
+
+/// EXTRACT THIS, REPLACE WITH MAZE DIMENSIONS
+- (bool) CanCheckCell:(int)i j:(int)j
+{
+    return i <= 3 && j <= 3 && i >= 1 && j >= 1;
 }
 
 /// Update is called once per frame
