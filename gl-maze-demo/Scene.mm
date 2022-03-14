@@ -117,8 +117,8 @@
     ASSERT([self loadMeshes]);
     
     // Create objects
-    _crate = new Crate(_cubeMesh, glm::vec3(2.0f, 0.0f, 0.0f));
-    _wall = new Wall(_planeMesh, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
+    _crate = new Crate(_cubeMesh, glm::vec3(1.0f, 0.0f, 0.0f));
+    _wall = new Wall(_planeMesh, glm::vec3(0.0f, 0.0f, 0.0f), 180.0f);
     _floor = new Floor(_cubeMesh, glm::vec3(0.0f, -1.0f, 0.0f));
     
     // Create new maze
@@ -173,7 +173,7 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(0, 0, -2),     // Camera is Positioned Here
+        glm::vec3(0, 0.5, -4),     // Camera is Positioned Here
         glm::vec3(0, 0.5, 0),     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );

@@ -164,4 +164,7 @@ iOSInjectionProject/
 ### Mac ###
 .DS_Store
 
+### Workspace ###
+project.xcworkspace
+
 # End of https://www.toptal.com/developers/gitignore/api/swift,macos,c++,xcode
