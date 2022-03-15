@@ -232,18 +232,21 @@
 
 - (void)look:(CGPoint)lookdirection;
 {
-    _cameraDirection = glm::vec3(lookdirection.x, 0, lookdirection.y);
-    if (_cameraDirection.z > 0){
-        _cameraPosition = glm::vec3(_cameraPosition.x, 0, _cameraPosition.z + 0.1);
-    }
-    if (_cameraDirection.x > 0){
-        _cameraPosition = glm::vec3(_cameraPosition.x + 0.1, 0, _cameraPosition.z);
-    }
-    if (_cameraDirection.z < 0){
+    if (lookdirection.y > 0){
         _cameraPosition = glm::vec3(_cameraPosition.x, 0, _cameraPosition.z - 0.1);
+        _cameraDirection = glm::vec3(_cameraDirection.x, 0, _cameraDirection.z - 0.1);
     }
-    if (_cameraDirection.x < 0){
+    if (lookdirection.x > 0){
         _cameraPosition = glm::vec3(_cameraPosition.x - 0.1, 0, _cameraPosition.z);
+        _cameraDirection = glm::vec3(_cameraDirection.x - 0.1, 0, _cameraDirection.z);
+    }
+    if (lookdirection.y < 0){
+        _cameraPosition = glm::vec3(_cameraPosition.x, 0, _cameraPosition.z + 0.1);
+        _cameraDirection = glm::vec3(_cameraDirection.x, 0, _cameraDirection.z + 0.1);
+    }
+    if (lookdirection.x < 0){
+        _cameraPosition = glm::vec3(_cameraPosition.x + 0.1, 0, _cameraPosition.z);
+        _cameraDirection = glm::vec3(_cameraDirection.x + 0.1, 0, _cameraDirection.z);
     }
 }
 
