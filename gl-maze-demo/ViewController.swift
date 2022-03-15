@@ -57,7 +57,6 @@ class ViewController: GLKViewController {
         let changedDistance = sender.translation(in: view)
         
         if changedDistance.y < -10 {
-            
             scene.look(changedDistance)
             scene.swipe(Int32(SwipeUp))
         }
@@ -75,7 +74,22 @@ class ViewController: GLKViewController {
         }
     }
         
-    @IBAction func toggle(_sender: Any) {
+    @IBAction func toggleFog(_sender: Any) {
         scene.useFog = !scene.useFog
+    }
+    
+    @IBOutlet weak var dayNightButton: UIButton!
+    @IBAction func toggleDay(_sender: Any) {
+        scene.isDay = !scene.isDay
+        
+        if scene.isDay {
+            dayNightButton.setTitle("Night", for: UIControl.State.normal)
+        } else {
+            dayNightButton.setTitle("Day", for: UIControl.State.normal)
+        }
+    }
+    
+    @IBAction func toggleFlashlight(_sender: Any) {
+        scene.useLight = !scene.useLight
     }
 }

@@ -15,6 +15,8 @@ enum { SwipeUp=1, SwipeDown, SwipeLeft, SwipeRight };
 @interface Scene : NSObject
 
 @property bool useFog;
+@property bool useLight;
+@property bool isDay;
 
 - (void)setup:(GLKView *)view;
 - (void)loadModels;
