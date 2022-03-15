@@ -42,7 +42,19 @@ class ViewController: GLKViewController {
         scene.draw()
     }
     
-    @IBAction func toggle(_sender: Any) {
+    @IBAction func toggleFog(_sender: Any) {
         scene.useFog = !scene.useFog
+    }
+    
+    @IBOutlet weak var dayNightButton: UIButton!
+    
+    @IBAction func toggleDay(_sender: Any) {
+        scene.isDay = !scene.isDay
+        
+        if scene.isDay {
+            dayNightButton.setTitle("Night", for: UIControl.State.normal)
+        } else {
+            dayNightButton.setTitle("Day", for: UIControl.State.normal)
+        }
     }
 }

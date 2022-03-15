@@ -177,7 +177,6 @@
         _ambientComponent = _nightAmbientComponent;
     }
     
-    
     // pass on global lighting, fog and texture values
     _shaderProgram->SetUniform4fv("specularLightPosition", glm::value_ptr(_specularLightPosition));
     _shaderProgram->SetUniform1f("shininess", _shininess);
