@@ -26,7 +26,8 @@ void Crate::Update(glm::mat4 vpMatrix)
     if (_rot >= 360.0f)
         _rot = 0.0f;
     
-    _modelMatrix = glm::translate(glm::mat4(1.0f), _pos);
+    _modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(0.3f, 0.3f, 0.3f));
+    _modelMatrix = glm::translate(_modelMatrix, _pos);
     _modelMatrix = glm::rotate(_modelMatrix, _rot, glm::vec3(0.0, 1.0, 0.0));
     _normalMatrix = glm::inverseTranspose(glm::mat3(_modelMatrix));
     
@@ -36,13 +37,10 @@ void Crate::Update(glm::mat4 vpMatrix)
 void Crate::Draw(Shader* shaderProgram)
 {
     // Uniform Vectors
-    glm::vec4 diffuseLightPosition(0.0f, 1.0f, 0.0f, 1.0f);
-    glm::vec4 diffuseComponent(1.0f, 1.0f, 1.0f, 1.0f);
+    glm::vec3 diffuseComponent(1.0f, 1.0f, 1.0f);
     
     // Set Uniforms
-    shaderProgram->SetUniform1i("useTexture", 1);
-    shaderProgram->SetUniform4fv("diffuseLightPosition", glm::value_ptr(diffuseLightPosition));
-    shaderProgram->SetUniform4fv("diffuseComponent", glm::value_ptr(diffuseComponent));
+    shaderProgram->SetUniform3fv("light.diffuse", glm::value_ptr(diffuseComponent));
     shaderProgram->SetUniformMatrix4fv("modelViewProjectionMatrix", glm::value_ptr(_mvpMatrix));
     shaderProgram->SetUniformMatrix4fv("modelViewMatrix", glm::value_ptr(_modelMatrix));
     shaderProgram->SetUniformMatrix3fv("normalMatrix", glm::value_ptr(_normalMatrix));

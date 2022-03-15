@@ -25,8 +25,8 @@ class Wall
 {
 public:
     Wall();
-    Wall(Mesh* mesh, glm::vec3 pos);
-    Wall(Mesh* mesh, glm::vec3 pos, float rotAngle);
+    Wall(Mesh* mesh, glm::vec3 pos, GLuint tex);
+    Wall(Mesh* mesh, glm::vec3 pos, float rotAngle, GLuint tex);
     void Draw(Shader* shaderProgram, glm::mat4 vpMatrix);
     
 private:
@@ -35,6 +35,7 @@ private:
     glm::mat4 _mvpMatrix, _modelMatrix;
     glm::mat3 _normalMatrix;
     
+    GLuint _tex;
     glm::vec3 _pos;
     float _rotAngle;
 };

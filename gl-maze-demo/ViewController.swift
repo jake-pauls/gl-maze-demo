@@ -35,6 +35,13 @@ class ViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGLView()
+        
+        let doubleTap = UITapGestureRecognizer(target:self,action: #selector(self.doDoubleTap(_:)))
+        doubleTap.numberOfTapsRequired = 2;
+        view.addGestureRecognizer(doubleTap)
+        
+        let pan = UIPanGestureRecognizer(target:self,action: #selector(self.doPan(_:)))
+        view.addGestureRecognizer(pan)
     }
     
     // Renders the scene each frame
@@ -42,7 +49,47 @@ class ViewController: GLKViewController {
         scene.draw()
     }
     
-    @IBAction func toggle(_sender: Any) {
+    @objc func doDoubleTap(_ sender: UIGestureRecognizer) {
+        scene.doDoubleTap()
+    }
+    
+    @objc func doPan(_ sender: UIPanGestureRecognizer) {
+        let changedDistance = sender.translation(in: view)
+        
+        if changedDistance.y < -10 {
+            scene.look(changedDistance)
+            scene.swipe(Int32(SwipeUp))
+        }
+        else if changedDistance.y > 10 {
+            scene.look(changedDistance)
+            scene.swipe(Int32(SwipeDown))
+        }
+        else if changedDistance.x < -10 {
+            scene.look(changedDistance)
+            scene.swipe(Int32(SwipeLeft))
+        }
+        else if changedDistance.x > 10 {
+            scene.look(changedDistance)
+            scene.swipe(Int32(SwipeRight))
+        }
+    }
+        
+    @IBAction func toggleFog(_sender: Any) {
         scene.useFog = !scene.useFog
+    }
+    
+    @IBOutlet weak var dayNightButton: UIButton!
+    @IBAction func toggleDay(_sender: Any) {
+        scene.isDay = !scene.isDay
+        
+        if scene.isDay {
+            dayNightButton.setTitle("Night", for: UIControl.State.normal)
+        } else {
+            dayNightButton.setTitle("Day", for: UIControl.State.normal)
+        }
+    }
+    
+    @IBAction func toggleFlashlight(_sender: Any) {
+        scene.useLight = !scene.useLight
     }
 }
