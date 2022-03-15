@@ -13,6 +13,7 @@
 @interface Scene : NSObject
 
 @property bool useFog;
+@property bool isDay;
 
 - (void)setup:(GLKView *)view;
 - (void)loadModels;

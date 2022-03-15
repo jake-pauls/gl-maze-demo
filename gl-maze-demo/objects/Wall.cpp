@@ -14,14 +14,14 @@ Wall::Wall() { }
 
 /// Creates a wall with a given position, no rotation by default
 /// Front of wall faces positive z-direction
-Wall::Wall(Mesh* mesh, glm::vec3 pos)
-    : _mesh(mesh), _pos(pos), _rotAngle(0.0f)
+Wall::Wall(Mesh* mesh, glm::vec3 pos, GLuint tex)
+    : _mesh(mesh), _pos(pos), _rotAngle(0.0f), _tex(tex)
 { }
 
 
 /// Creates a wall with both a given position and rotation about an axis
-Wall::Wall(Mesh* mesh, glm::vec3 pos, float rotAngle)
-    : _mesh(mesh), _pos(pos), _rotAngle(rotAngle)
+Wall::Wall(Mesh* mesh, glm::vec3 pos, float rotAngle, GLuint tex)
+    : _mesh(mesh), _pos(pos), _rotAngle(rotAngle), _tex(tex)
 { }
 
 void Wall::Draw(Shader *shaderProgram, glm::mat4 vpMatrix)
@@ -49,6 +49,9 @@ void Wall::Draw(Shader *shaderProgram, glm::mat4 vpMatrix)
     
     // Use Program
     shaderProgram->Bind();
+    
+    // Bind set texture
+    GL_CALL(glBindTexture(GL_TEXTURE_2D, _tex));
     
     // Bind vertex array and index buffer
     GL_CALL(glBindVertexArray(_mesh->VAO));

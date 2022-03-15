@@ -38,6 +38,10 @@
     // Textures
     GLuint _crateTexture;
     GLuint _grassTexture;
+    
+    GLuint _wall0Texture;
+    GLuint _wall1Texture;
+    GLuint _wall2Texture;
 
     Shader* _shaderProgram;
     
@@ -46,6 +50,8 @@
     glm::vec4 _specularComponent;
     GLfloat _shininess;
     glm::vec4 _ambientComponent;
+    glm::vec4 _dayAmbientComponent;
+    glm::vec4 _nightAmbientComponent;
     
     // Meshes
     Mesh* _cubeMesh;
@@ -69,6 +75,7 @@
 @implementation Scene
 
 @synthesize useFog;
+@synthesize isDay;
 
 /// Called when 'Scene' is deallocated
 - (void)dealloc
@@ -89,22 +96,32 @@
     // Fog Uniform
     useFog = 0;
     
+    // Day/Night
+    isDay = 0;
+    _dayAmbientComponent = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    _nightAmbientComponent = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
+    
     // Load in textures
     _crateTexture = [TextureLoader loadTextureFile:@"crate.jpg"];
     _grassTexture = [TextureLoader loadTextureFile:@"grass.jpg"];
+    
+    // Wall textures
+    _wall0Texture = [TextureLoader loadTextureFile:@"wall0.jpg"];
+    _wall1Texture = [TextureLoader loadTextureFile:@"wall1.jpg"];
+    _wall2Texture = [TextureLoader loadTextureFile:@"wall2.jpg"];
 
     // Lighting Values
     _shininess = 1000.0f;
     _specularComponent = glm::vec4(0.8f, 0.1f, 0.1f, 1.0f);
     _specularLightPosition = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
-    _ambientComponent = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
+    _ambientComponent = _nightAmbientComponent;
     
     // Meshes
     _cubeMesh = new Mesh();
     _planeMesh = new Mesh();
     
     // Initialize MazeBuilder
-    mazeBuilder = new MazeBuilder(_planeMesh, _cubeMesh);
+    mazeBuilder = new MazeBuilder(_planeMesh, _cubeMesh, _wall0Texture, _wall1Texture, _wall2Texture);
     mazeBuilder->PrintMazeDebug();
     
     GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
@@ -139,7 +156,7 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(-5, 10, -5),     // Camera is Positioned Here
+        glm::vec3(-5, 5, -5),     // Camera is Positioned Here
         glm::vec3(10, 0.5, 10),     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );
@@ -153,6 +170,14 @@
 /// Draw is called once per frame
 - (void)draw;
 {
+    // Check if toggle is on day or night
+    if (isDay) {
+        _ambientComponent = _dayAmbientComponent;
+    } else {
+        _ambientComponent = _nightAmbientComponent;
+    }
+    
+    
     // pass on global lighting, fog and texture values
     _shaderProgram->SetUniform4fv("specularLightPosition", glm::value_ptr(_specularLightPosition));
     _shaderProgram->SetUniform1f("shininess", _shininess);
@@ -167,7 +192,7 @@
     GL_CALL(glBindTexture(GL_TEXTURE_2D, _crateTexture));
     _crate->Draw(_shaderProgram);
     
-    // Draw walls
+    // Draw walls, each wall binds it's own texture privately
     for (int i = 0; i < mazeBuilder->WallList.size(); i++)
         mazeBuilder->WallList[i]->Draw(_shaderProgram, _viewProjectionMatrix);
     

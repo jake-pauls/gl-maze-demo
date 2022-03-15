@@ -11,6 +11,9 @@
 		404BCBEB27DB3B5400FA9665 /* DisjointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 404BCBE727DB3B5400FA9665 /* DisjointSet.cpp */; };
 		404BCBEC27DB3B5400FA9665 /* Maze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 404BCBE827DB3B5400FA9665 /* Maze.cpp */; };
 		40B4AA2727E00059007FDF09 /* MazeBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40B4AA2527E00059007FDF09 /* MazeBuilder.cpp */; };
+		40B4AA2B27E00E1F007FDF09 /* wall0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B4AA2A27E00E1F007FDF09 /* wall0.jpg */; };
+		40B4AA2F27E014F4007FDF09 /* wall1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B4AA2E27E014F4007FDF09 /* wall1.jpg */; };
+		40B4AA3127E01657007FDF09 /* wall2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B4AA3027E01657007FDF09 /* wall2.jpg */; };
 		40E4D10727D85FBB00ED405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10627D85FBB00ED405A /* AppDelegate.swift */; };
 		40E4D10927D85FBB00ED405A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10827D85FBB00ED405A /* SceneDelegate.swift */; };
 		40E4D10B27D85FBB00ED405A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10A27D85FBB00ED405A /* ViewController.swift */; };
@@ -40,6 +43,9 @@
 		404BCBEA27DB3B5400FA9665 /* Maze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Maze.h; sourceTree = "<group>"; };
 		40B4AA2527E00059007FDF09 /* MazeBuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MazeBuilder.cpp; sourceTree = "<group>"; };
 		40B4AA2627E00059007FDF09 /* MazeBuilder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MazeBuilder.hpp; sourceTree = "<group>"; };
+		40B4AA2A27E00E1F007FDF09 /* wall0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall0.jpg; sourceTree = "<group>"; };
+		40B4AA2E27E014F4007FDF09 /* wall1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall1.jpg; sourceTree = "<group>"; };
+		40B4AA3027E01657007FDF09 /* wall2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall2.jpg; sourceTree = "<group>"; };
 		40E4D10327D85FBB00ED405A /* gl-maze-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gl-maze-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40E4D10627D85FBB00ED405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40E4D10827D85FBB00ED405A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +145,9 @@
 		40E4D11C27D8673E00ED405A /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				40B4AA2A27E00E1F007FDF09 /* wall0.jpg */,
+				40B4AA2E27E014F4007FDF09 /* wall1.jpg */,
+				40B4AA3027E01657007FDF09 /* wall2.jpg */,
 				40F88E6427DBEE9D00254505 /* grass.jpg */,
 				40E4D11A27D8673200ED405A /* crate.jpg */,
 			);
@@ -260,10 +269,13 @@
 			files = (
 				40F88E6527DBEE9D00254505 /* grass.jpg in Resources */,
 				40E4D13727D89DD600ED405A /* Shader.fsh in Resources */,
+				40B4AA3127E01657007FDF09 /* wall2.jpg in Resources */,
 				40E4D11327D85FBC00ED405A /* LaunchScreen.storyboard in Resources */,
 				40F88E6C27DC1D4D00254505 /* glm in Resources */,
+				40B4AA2F27E014F4007FDF09 /* wall1.jpg in Resources */,
 				40E4D11027D85FBC00ED405A /* Assets.xcassets in Resources */,
 				40E4D10E27D85FBB00ED405A /* Main.storyboard in Resources */,
+				40B4AA2B27E00E1F007FDF09 /* wall0.jpg in Resources */,
 				40E4D11B27D8673200ED405A /* crate.jpg in Resources */,
 				40E4D13627D89DD300ED405A /* Shader.vsh in Resources */,
 			);
