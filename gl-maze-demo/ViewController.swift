@@ -58,19 +58,15 @@ class ViewController: GLKViewController {
         
         if changedDistance.y < -10 {
             scene.look(changedDistance)
-            scene.swipe(Int32(SwipeUp))
         }
         else if changedDistance.y > 10 {
             scene.look(changedDistance)
-            scene.swipe(Int32(SwipeDown))
         }
         else if changedDistance.x < -10 {
             scene.look(changedDistance)
-            scene.swipe(Int32(SwipeLeft))
         }
         else if changedDistance.x > 10 {
             scene.look(changedDistance)
-            scene.swipe(Int32(SwipeRight))
         }
     }
         

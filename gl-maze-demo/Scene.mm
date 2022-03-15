@@ -184,8 +184,8 @@
     }
     
     if (useLight) {
-        // TODO: Add camera rotation
-        _lightDirection = _cameraDirection;
+        // Mildly correct the camera direction vector for aiming the flashlight
+        _lightDirection = _cameraDirection * (float) 0.00001;
     } else {
         _lightDirection = glm::vec3(0.0f, 0.0f, 0.0f);
     }
@@ -195,7 +195,6 @@
     
     _lightPosition = _cameraPosition;
     _shaderProgram->SetUniform3fv("light.position", glm::value_ptr(_lightPosition));
-    
     _shaderProgram->SetUniform3fv("light.direction", glm::value_ptr(_lightDirection));
     
     _shaderProgram->SetUniform1f("light.cutOff", glm::cos(glm::radians(12.5f)));
@@ -203,7 +202,6 @@
     _shaderProgram->SetUniform3fv("viewPosition", glm::value_ptr(_lightPosition));
 
     _shaderProgram->SetUniform1f("shininess", _shininess);
-    
     _shaderProgram->SetUniform3fv("light.ambient", glm::value_ptr(_ambientComponent));
     _shaderProgram->SetUniform3fv("light.specular", glm::value_ptr(_specularComponent));
     _shaderProgram->SetUniform1f("light.constant", 1.0f);
@@ -266,12 +264,14 @@
     return true;
 }
 
+/// Double tap gesture to reset camera position
 - (void)doDoubleTap
 {
     _cameraPosition = _startingPosition;
     _cameraDirection = glm::vec3(0.0f, 0.0f, 1.0f);
 }
 
+/// Used by the pan gesture to modify camera movement and rotation vectors
 - (void)look:(CGPoint)lookdirection;
 {
     if (lookdirection.y > 0){
