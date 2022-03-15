@@ -55,7 +55,9 @@ class ViewController: GLKViewController {
     
     @objc func doPan(_ sender: UIPanGestureRecognizer) {
         let changedDistance = sender.translation(in: view)
+        
         scene.look(changedDistance)
+        
         if changedDistance.y < -10 {
             
             scene.swipe(Int32(SwipeUp))

@@ -232,27 +232,38 @@
 
 - (void)look:(CGPoint)lookdirection;
 {
-//    _cameraPosition = glm::vec3(lookdirection.x, 0, lookdirection.y);
-//    _cameraDirection
+    _cameraDirection = glm::vec3(lookdirection.x, 0, lookdirection.y);
+    if (_cameraDirection.z > 0){
+        _cameraPosition = glm::vec3(_cameraPosition.x, 0, _cameraPosition.z + 0.1);
+    }
+    if (_cameraDirection.x > 0){
+        _cameraPosition = glm::vec3(_cameraPosition.x + 0.1, 0, _cameraPosition.z);
+    }
+    if (_cameraDirection.z < 0){
+        _cameraPosition = glm::vec3(_cameraPosition.x, 0, _cameraPosition.z - 0.1);
+    }
+    if (_cameraDirection.x < 0){
+        _cameraPosition = glm::vec3(_cameraPosition.x - 0.1, 0, _cameraPosition.z);
+    }
 }
 
 - (void)swipe:(int)direction;
 {
-    if (direction == SwipeRight || direction == SwipeLeft ){
-        if (_cameraDirection.z > 0){
-            _cameraDirection = glm::vec3(10, 0, 0);
-        }
-        else if (_cameraDirection.x > 0) {
-            _cameraDirection = glm::vec3(0, 0, 10);
-        }
-        NSLog(@"%s", "SR");
-    }
-    else if (direction == SwipeUp){
-        NSLog(@"%s", "SU");
-    }
-    else if (direction == SwipeDown){
-        NSLog(@"%s", "SD");
-    }
+//    if (direction == SwipeRight || direction == SwipeLeft ){
+//        if (_cameraDirection.z > 0 && _cameraDirection.x == 0 ){
+//            _cameraDirection = glm::vec3(1, 0, 0);
+//        }
+//        else if (_cameraDirection.x > 0 && _cameraDirection.z == 0 ) {
+//            _cameraDirection = glm::vec3(0, 0, 1);
+//        }
+//        NSLog(@"%s", "SR");
+//    }
+//    else if (direction == SwipeUp){
+//        NSLog(@"%s", "SU");
+//    }
+//    else if (direction == SwipeDown){
+//        NSLog(@"%s", "SD");
+//    }
 }
 
 /// Retrieves resources within the Xcode project
