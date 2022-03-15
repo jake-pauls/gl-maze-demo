@@ -35,6 +35,13 @@ class ViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGLView()
+        
+        let doubleTap = UITapGestureRecognizer(target:self,action: #selector(self.doDoubleTap(_:)))
+        doubleTap.numberOfTapsRequired = 2;
+        view.addGestureRecognizer(doubleTap)
+        
+        let pan = UIPanGestureRecognizer(target:self,action: #selector(self.doPan(_:)))
+        view.addGestureRecognizer(pan)
     }
     
     // Renders the scene each frame
@@ -42,6 +49,28 @@ class ViewController: GLKViewController {
         scene.draw()
     }
     
+    @objc func doDoubleTap(_ sender: UIGestureRecognizer) {
+        scene.doDoubleTap()
+    }
+    
+    @objc func doPan(_ sender: UIPanGestureRecognizer) {
+        let changedDistance = sender.translation(in: view)
+        scene.look(changedDistance)
+        if changedDistance.y < -10 {
+            
+            scene.swipe(Int32(SwipeUp))
+        }
+        if changedDistance.y > 10 {
+            scene.swipe(Int32(SwipeDown))
+        }
+        if changedDistance.x < -10 {
+            scene.swipe(Int32(SwipeLeft))
+        }
+        if changedDistance.x > 10 {
+            scene.swipe(Int32(SwipeRight))
+        }
+    }
+        
     @IBAction func toggle(_sender: Any) {
         scene.useFog = !scene.useFog
     }

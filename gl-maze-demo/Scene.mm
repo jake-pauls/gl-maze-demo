@@ -56,6 +56,10 @@
     Floor* _floor;
     Wall* _wall;
     
+    // Camera
+    glm::vec3 _cameraPosition;
+    glm::vec3 _cameraDirection;
+    
     // MVP Matrices
     glm::mat4 _projectionMatrix;
     glm::mat4 _viewMatrix;
@@ -88,6 +92,10 @@
 
     // Fog Uniform
     useFog = 0;
+    
+    // Camera
+    _cameraPosition = glm::vec3(0,0,0);
+    _cameraDirection = glm::vec3(0,0,1);
     
     // Load in textures
     _crateTexture = [TextureLoader loadTextureFile:@"crate.jpg"];
@@ -139,8 +147,8 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(-5, 10, -5),     // Camera is Positioned Here
-        glm::vec3(10, 0.5, 10),     // Camera Looks at this Point
+        _cameraPosition,     // Camera is Positioned Here
+        _cameraDirection,     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );
     
@@ -214,6 +222,37 @@
     });
     
     return true;
+}
+
+
+- (void)doDoubleTap
+{
+    NSLog(@"%s", "DT");
+}
+
+- (void)look:(CGPoint)lookdirection;
+{
+//    _cameraPosition = glm::vec3(lookdirection.x, 0, lookdirection.y);
+//    _cameraDirection
+}
+
+- (void)swipe:(int)direction;
+{
+    if (direction == SwipeRight || direction == SwipeLeft ){
+        if (_cameraDirection.z > 0){
+            _cameraDirection = glm::vec3(10, 0, 0);
+        }
+        else if (_cameraDirection.x > 0) {
+            _cameraDirection = glm::vec3(0, 0, 10);
+        }
+        NSLog(@"%s", "SR");
+    }
+    else if (direction == SwipeUp){
+        NSLog(@"%s", "SU");
+    }
+    else if (direction == SwipeDown){
+        NSLog(@"%s", "SD");
+    }
 }
 
 /// Retrieves resources within the Xcode project
