@@ -46,12 +46,15 @@
     Shader* _shaderProgram;
     
     // Global Lighting Parameters
-    glm::vec4 _specularLightPosition;
     glm::vec4 _specularComponent;
     GLfloat _shininess;
+    
     glm::vec4 _ambientComponent;
     glm::vec4 _dayAmbientComponent;
     glm::vec4 _nightAmbientComponent;
+    
+    glm::vec3 _lightPosition;
+    glm::vec3 _lightDirection;
     
     // Meshes
     Mesh* _cubeMesh;
@@ -75,6 +78,7 @@
 @implementation Scene
 
 @synthesize useFog;
+@synthesize useLight;
 @synthesize isDay;
 
 /// Called when 'Scene' is deallocated
@@ -113,7 +117,6 @@
     // Lighting Values
     _shininess = 1000.0f;
     _specularComponent = glm::vec4(0.8f, 0.1f, 0.1f, 1.0f);
-    _specularLightPosition = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
     _ambientComponent = _nightAmbientComponent;
     
     // Meshes
@@ -136,17 +139,10 @@
     ASSERT([self loadMeshes]);
     
     // Create objects
-    _crate = new Crate(_cubeMesh, glm::vec3(0.0f, -0.5f, 0.0f));
-    _wall = new Wall(_planeMesh, glm::vec3(0.0f, -1.0f, 0.0f), 180.0f);
+    _crate = new Crate(_cubeMesh, glm::vec3(0.0f, 1.0f, 0.0f));
     _floor = new Floor(_cubeMesh, glm::vec3(0.0f, -1.0f, 0.0f));
     
     mazeBuilder->DrawWalls();
-}
-
-/// EXTRACT THIS, REPLACE WITH MAZE DIMENSIONS
-- (bool) CanCheckCell:(int)i j:(int)j
-{
-    return i <= 3 && j <= 3 && i >= 1 && j >= 1;
 }
 
 /// Update is called once per frame
@@ -156,7 +152,7 @@
     _projectionMatrix = glm::perspective(glm::radians(60.0f), aspectRatio, 1.0f, 20.0f);
     
     _viewMatrix = glm::lookAt(
-        glm::vec3(-5, 5, -5),     // Camera is Positioned Here
+        glm::vec3(-2, 1, -2),     // Camera is Positioned Here
         glm::vec3(10, 0.5, 10),     // Camera Looks at this Point
         glm::vec3(0, 1, 0)
     );
@@ -177,13 +173,34 @@
         _ambientComponent = _nightAmbientComponent;
     }
     
-    // pass on global lighting, fog and texture values
-    _shaderProgram->SetUniform4fv("specularLightPosition", glm::value_ptr(_specularLightPosition));
-    _shaderProgram->SetUniform1f("shininess", _shininess);
-    _shaderProgram->SetUniform4fv("specularComponent", glm::value_ptr(_specularComponent));
-    _shaderProgram->SetUniform4fv("ambientComponent", glm::value_ptr(_ambientComponent));
+    if (useLight) {
+        // TODO: Add camera rotation
+        _lightDirection = glm::vec3(0.0f, 0.0f, 1.0f);
+    } else {
+        _lightDirection = glm::vec3(0.0f, 0.0f, 0.0f);
+    }
+    
+    // Set fog uniform
     _shaderProgram->SetUniform1i("useFog", useFog);
+    
+    // TODO: Add camera position
+    _lightPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+    _shaderProgram->SetUniform3fv("light.position", glm::value_ptr(_lightPosition));
+    
+    _shaderProgram->SetUniform3fv("light.direction", glm::value_ptr(_lightDirection));
+    
+    _shaderProgram->SetUniform1f("light.cutOff", glm::cos(glm::radians(12.5f)));
+    _shaderProgram->SetUniform1f("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+    _shaderProgram->SetUniform3fv("viewPosition", glm::value_ptr(_lightPosition));
 
+    _shaderProgram->SetUniform1f("shininess", _shininess);
+    
+    _shaderProgram->SetUniform3fv("light.ambient", glm::value_ptr(_ambientComponent));
+    _shaderProgram->SetUniform3fv("light.specular", glm::value_ptr(_specularComponent));
+    _shaderProgram->SetUniform1f("light.constant", 1.0f);
+    _shaderProgram->SetUniform1f("light.linear", 0.09f);
+    _shaderProgram->SetUniform1f("light.quadratic", 0.032f);
+    
     GL_CALL(glViewport(0, 0, (int)_viewport.drawableWidth, (int)_viewport.drawableHeight));
     GL_CALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     
@@ -203,7 +220,7 @@
 /// Sets up the basic program object for the scene
 - (bool)setupShaders
 {
-    _shaderProgram = new Shader([self retrieveFilePathByName:"Shader.vsh"], [self retrieveFilePathByName:"Shader.fsh"]);
+    _shaderProgram = new Shader([self retrieveFilePathByName:"LightShader.vsh"], [self retrieveFilePathByName:"LightShader.fsh"]);
 
     return true;
 }

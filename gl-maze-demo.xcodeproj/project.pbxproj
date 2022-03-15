@@ -14,6 +14,8 @@
 		40B4AA2B27E00E1F007FDF09 /* wall0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B4AA2A27E00E1F007FDF09 /* wall0.jpg */; };
 		40B4AA2F27E014F4007FDF09 /* wall1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B4AA2E27E014F4007FDF09 /* wall1.jpg */; };
 		40B4AA3127E01657007FDF09 /* wall2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B4AA3027E01657007FDF09 /* wall2.jpg */; };
+		40B4AA3427E04B6C007FDF09 /* LightShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 40B4AA3227E04AD2007FDF09 /* LightShader.vsh */; };
+		40B4AA3627E04B6F007FDF09 /* LightShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 40B4AA3327E04B66007FDF09 /* LightShader.fsh */; };
 		40E4D10727D85FBB00ED405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10627D85FBB00ED405A /* AppDelegate.swift */; };
 		40E4D10927D85FBB00ED405A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10827D85FBB00ED405A /* SceneDelegate.swift */; };
 		40E4D10B27D85FBB00ED405A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D10A27D85FBB00ED405A /* ViewController.swift */; };
@@ -26,8 +28,6 @@
 		40E4D12A27D887FE00ED405A /* Crate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D12827D887FE00ED405A /* Crate.cpp */; };
 		40E4D12E27D88D2B00ED405A /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D12C27D88D2B00ED405A /* Mesh.cpp */; };
 		40E4D13127D8976500ED405A /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E4D12F27D8976500ED405A /* Shader.cpp */; };
-		40E4D13627D89DD300ED405A /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 40E4D13427D8980300ED405A /* Shader.vsh */; };
-		40E4D13727D89DD600ED405A /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 40E4D13527D8983400ED405A /* Shader.fsh */; };
 		40F88E6327DBE66000254505 /* Floor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F88E6127DBE66000254505 /* Floor.cpp */; };
 		40F88E6527DBEE9D00254505 /* grass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40F88E6427DBEE9D00254505 /* grass.jpg */; };
 		40F88E6827DBF80C00254505 /* Wall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F88E6627DBF80C00254505 /* Wall.cpp */; };
@@ -46,6 +46,8 @@
 		40B4AA2A27E00E1F007FDF09 /* wall0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall0.jpg; sourceTree = "<group>"; };
 		40B4AA2E27E014F4007FDF09 /* wall1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall1.jpg; sourceTree = "<group>"; };
 		40B4AA3027E01657007FDF09 /* wall2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall2.jpg; sourceTree = "<group>"; };
+		40B4AA3227E04AD2007FDF09 /* LightShader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = LightShader.vsh; sourceTree = "<group>"; };
+		40B4AA3327E04B66007FDF09 /* LightShader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = LightShader.fsh; sourceTree = "<group>"; };
 		40E4D10327D85FBB00ED405A /* gl-maze-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gl-maze-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40E4D10627D85FBB00ED405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40E4D10827D85FBB00ED405A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,8 +69,6 @@
 		40E4D12D27D88D2B00ED405A /* Mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mesh.hpp; sourceTree = "<group>"; };
 		40E4D12F27D8976500ED405A /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		40E4D13027D8976500ED405A /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
-		40E4D13427D8980300ED405A /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
-		40E4D13527D8983400ED405A /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		40F88E6127DBE66000254505 /* Floor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Floor.cpp; sourceTree = "<group>"; };
 		40F88E6227DBE66000254505 /* Floor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Floor.hpp; sourceTree = "<group>"; };
 		40F88E6427DBEE9D00254505 /* grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grass.jpg; sourceTree = "<group>"; };
@@ -202,8 +202,8 @@
 		40E4D13327D897E700ED405A /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				40E4D13427D8980300ED405A /* Shader.vsh */,
-				40E4D13527D8983400ED405A /* Shader.fsh */,
+				40B4AA3227E04AD2007FDF09 /* LightShader.vsh */,
+				40B4AA3327E04B66007FDF09 /* LightShader.fsh */,
 			);
 			path = shaders;
 			sourceTree = "<group>";
@@ -268,7 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40F88E6527DBEE9D00254505 /* grass.jpg in Resources */,
-				40E4D13727D89DD600ED405A /* Shader.fsh in Resources */,
+				40B4AA3627E04B6F007FDF09 /* LightShader.fsh in Resources */,
 				40B4AA3127E01657007FDF09 /* wall2.jpg in Resources */,
 				40E4D11327D85FBC00ED405A /* LaunchScreen.storyboard in Resources */,
 				40F88E6C27DC1D4D00254505 /* glm in Resources */,
@@ -276,8 +276,8 @@
 				40E4D11027D85FBC00ED405A /* Assets.xcassets in Resources */,
 				40E4D10E27D85FBB00ED405A /* Main.storyboard in Resources */,
 				40B4AA2B27E00E1F007FDF09 /* wall0.jpg in Resources */,
+				40B4AA3427E04B6C007FDF09 /* LightShader.vsh in Resources */,
 				40E4D11B27D8673200ED405A /* crate.jpg in Resources */,
-				40E4D13627D89DD300ED405A /* Shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

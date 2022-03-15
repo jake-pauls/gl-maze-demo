@@ -20,7 +20,7 @@
                                 <rect key="frame" x="20" y="83" width="106" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Day/Night"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Day"/>
                                 <connections>
                                     <action selector="toggleDayWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aX1-p3-SWR"/>
                                 </connections>
@@ -32,6 +32,15 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Fog"/>
                                 <connections>
                                     <action selector="toggleFogWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d9J-J7-HB4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVN-br-eIV">
+                                <rect key="frame" x="20" y="44" width="106" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Flashlight"/>
+                                <connections>
+                                    <action selector="toggleFlashlightWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dRA-5k-dh1"/>
                                 </connections>
                             </button>
                         </subviews>

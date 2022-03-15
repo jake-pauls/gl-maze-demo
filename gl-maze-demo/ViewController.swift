@@ -47,7 +47,6 @@ class ViewController: GLKViewController {
     }
     
     @IBOutlet weak var dayNightButton: UIButton!
-    
     @IBAction func toggleDay(_sender: Any) {
         scene.isDay = !scene.isDay
         
@@ -56,5 +55,9 @@ class ViewController: GLKViewController {
         } else {
             dayNightButton.setTitle("Day", for: UIControl.State.normal)
         }
+    }
+    
+    @IBAction func toggleFlashlight(_sender: Any) {
+        scene.useLight = !scene.useLight
     }
 }
