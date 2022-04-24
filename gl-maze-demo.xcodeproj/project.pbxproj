@@ -132,9 +132,9 @@
 				40E4D11127D85FBC00ED405A /* LaunchScreen.storyboard */,
 				40E4D11427D85FBC00ED405A /* Info.plist */,
 				404BCBE527DB210100FA9665 /* TextureLoader.h */,
-				404BCBE327DB20E300FA9665 /* TextureLoader.mm */,
 				40E4D12027D878EA00ED405A /* Scene.h */,
 				40E4D11E27D878C100ED405A /* Scene.mm */,
+				404BCBE327DB20E300FA9665 /* TextureLoader.mm */,
 				40E4D12227D87AC200ED405A /* Assert.hpp */,
 				40E4D12127D87AC200ED405A /* Assert.cpp */,
 				40E4D11D27D878C100ED405A /* gl-maze-demo-Bridging-Header.h */,
@@ -158,12 +158,12 @@
 			isa = PBXGroup;
 			children = (
 				40F88E6A27DC1CA500254505 /* PlaneData.h */,
-				40E4D12527D8844200ED405A /* CrateData.h */,
 				40E4D12827D887FE00ED405A /* Crate.cpp */,
 				40E4D12927D887FE00ED405A /* Crate.hpp */,
 				40F88E6127DBE66000254505 /* Floor.cpp */,
 				40F88E6227DBE66000254505 /* Floor.hpp */,
 				40F88E6627DBF80C00254505 /* Wall.cpp */,
+				40E4D12527D8844200ED405A /* CrateData.h */,
 				40F88E6727DBF80C00254505 /* Wall.hpp */,
 			);
 			path = objects;
@@ -183,10 +183,10 @@
 				404BCBE627DB3A7600FA9665 /* maze */,
 				40E4D12C27D88D2B00ED405A /* Mesh.cpp */,
 				40E4D12D27D88D2B00ED405A /* Mesh.hpp */,
-				40E4D12F27D8976500ED405A /* Shader.cpp */,
-				40E4D13027D8976500ED405A /* Shader.hpp */,
 				40B4AA2527E00059007FDF09 /* MazeBuilder.cpp */,
 				40B4AA2627E00059007FDF09 /* MazeBuilder.hpp */,
+				40E4D12F27D8976500ED405A /* Shader.cpp */,
+				40E4D13027D8976500ED405A /* Shader.hpp */,
 			);
 			path = core;
 			sourceTree = "<group>";
